@@ -1,0 +1,595 @@
+/* ============================================================
+   DebugAI Theme System
+   - :root defines the dark theme (default)
+   - .debugai-light overrides for polished light mode
+   ============================================================ */
+
+:root {
+  /* Dark Theme Tokens (Default) */
+  --bg-primary: #0b1326;
+  --bg-secondary: #131b2e;
+  --bg-surface: #0b1326;
+  --bg-surface-high: #222a3d;
+  --bg-surface-highest: #2d3449;
+  --bg-card: rgba(19, 27, 46, 0.7);
+  
+  --text-primary: #dae2fd;
+  --text-secondary: #bdc8d1;
+  --text-muted: #87929a;
+  
+  --border-light: rgba(62, 72, 79, 0.3);
+  --border-medium: rgba(135, 146, 154, 0.2);
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  --accent-primary: #8ed5ff;
+  --accent-secondary: #ddb7ff;
+  --accent-tertiary: #ffc176;
+  --accent-error: #ffb4ab;
+}
+
+.debugai-light {
+  /* Light Theme Tokens */
+  --bg-primary: #F5F7FB;
+  --bg-secondary: #FFFFFF;
+  --bg-surface: #EEF2F7;
+  --bg-surface-high: #FFFFFF;
+  --bg-surface-highest: #E5EAF3;
+  --bg-card: #FFFFFF;
+  
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #6B7280;
+  
+  --border-light: #D1D5DB;
+  --border-medium: #BFC7D5;
+  
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 16px 40px rgba(15, 35, 58, 0.08);
+  
+  --accent-primary: #2563EB;
+  --accent-secondary: #7C3AED;
+  --accent-tertiary: #B45309;
+  --accent-error: #EF4444;
+}
+
+/* ============================================================
+   Global Transition (smooth theme switching)
+   ============================================================ */
+* {
+  transition: background-color 0.2s ease-out, border-color 0.2s ease-out, color 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+/* ============================================================
+   Page Entrance Animations
+   ============================================================ */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-primary);
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.page-transition-overlay.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes contentFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: contentFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Disable transitions on load to prevent flash */
+.no-transitions * {
+  transition: none !important;
+}
+
+/* ============================================================
+   Base body
+   ============================================================ */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   Glass card base
+   ============================================================ */
+.glass-card {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-md);
+}
+
+.debugai-light .glass-card {
+  backdrop-filter: none;
+  background: #FFFFFF;
+  border: 1px solid #D6DCE8;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+}
+
+/* ============================================================
+   LIGHT MODE — Tailwind Color Utility Overrides
+   The HTML uses hardcoded dark-palette Tailwind classes.
+   We override every color utility so they resolve to
+   appropriate light-mode values.
+   ============================================================ */
+
+/* --- Core Surface & Background colors --- */
+.debugai-light .bg-background { background-color: #F5F7FB !important; }
+.debugai-light .bg-surface { background-color: #EEF2F7 !important; }
+.debugai-light .bg-surface\/80 { background-color: rgba(255, 255, 255, 0.85) !important; }
+.debugai-light .bg-surface-dim { background-color: #EEF2F7 !important; }
+.debugai-light .bg-surface-container-lowest { background-color: #F8FAFC !important; }
+.debugai-light .bg-surface-container-low { background-color: #FFFFFF !important; }
+.debugai-light .bg-surface-container-low\/90 { background-color: rgba(255, 255, 255, 0.95) !important; }
+.debugai-light .bg-surface-container-low\/50 { background-color: rgba(255, 255, 255, 0.8) !important; }
+.debugai-light .bg-surface-container { background-color: #F1F5F9 !important; }
+.debugai-light .bg-surface-container-high { background-color: #EEF2F7 !important; }
+.debugai-light .bg-surface-container-high\/50 { background-color: rgba(229, 234, 243, 0.7) !important; }
+.debugai-light .bg-surface-container-high\/40 { background-color: rgba(229, 234, 243, 0.6) !important; }
+.debugai-light .bg-surface-container-high\/30 { background-color: rgba(229, 234, 243, 0.5) !important; }
+.debugai-light .bg-surface-container-highest { background-color: #E2E8F0 !important; }
+.debugai-light .bg-surface-variant { background-color: #E5EAF3 !important; }
+.debugai-light .bg-surface-variant\/10 { background-color: rgba(229, 234, 243, 0.35) !important; }
+.debugai-light .bg-surface-variant\/20 { background-color: rgba(229, 234, 243, 0.5) !important; }
+.debugai-light .bg-surface-bright { background-color: #F1F5F9 !important; }
+
+/* --- Text colors --- */
+.debugai-light .text-on-surface { color: #111827 !important; }
+.debugai-light .text-on-surface-variant { color: #4B5563 !important; }
+.debugai-light .text-on-background { color: #111827 !important; }
+
+/* --- Primary color adjustments --- */
+.debugai-light .text-primary { color: #2563EB !important; }
+.debugai-light .bg-primary { background-color: #2563EB !important; }
+.debugai-light .bg-primary\/5 { background-color: rgba(37, 99, 235, 0.06) !important; }
+.debugai-light .bg-primary\/10 { background-color: rgba(37, 99, 235, 0.1) !important; }
+.debugai-light .bg-primary\/20 { background-color: rgba(37, 99, 235, 0.18) !important; }
+.debugai-light .bg-primary\/40 { background-color: rgba(37, 99, 235, 0.35) !important; }
+.debugai-light .bg-primary\/60 { background-color: rgba(37, 99, 235, 0.55) !important; }
+.debugai-light .text-on-primary { color: #FFFFFF !important; }
+.debugai-light .bg-primary-container { background-color: #DBEAFE !important; }
+.debugai-light .text-on-primary-container { color: #1E40AF !important; }
+.debugai-light .border-primary { border-color: #2563EB !important; }
+.debugai-light .border-primary\/20 { border-color: rgba(37, 99, 235, 0.25) !important; }
+.debugai-light .border-primary\/30 { border-color: rgba(37, 99, 235, 0.3) !important; }
+.debugai-light .border-primary\/50 { border-color: rgba(37, 99, 235, 0.5) !important; }
+.debugai-light .ring-primary { --tw-ring-color: #2563EB !important; }
+.debugai-light .ring-primary\/20 { --tw-ring-color: rgba(37, 99, 235, 0.2) !important; }
+.debugai-light .shadow-primary\/10 { --tw-shadow-color: rgba(37, 99, 235, 0.1) !important; }
+.debugai-light .focus\:ring-primary:focus { --tw-ring-color: #2563EB !important; }
+.debugai-light .focus\:border-primary:focus { border-color: #2563EB !important; }
+
+/* --- Secondary color adjustments --- */
+.debugai-light .text-secondary { color: #7C3AED !important; }
+.debugai-light .bg-secondary\/10 { background-color: rgba(124, 58, 237, 0.1) !important; }
+.debugai-light .bg-secondary-container { background-color: #EDE9FE !important; }
+.debugai-light .bg-secondary-container\/20 { background-color: rgba(237, 233, 254, 0.4) !important; }
+.debugai-light .text-on-secondary-container { color: #5B21B6 !important; }
+.debugai-light .border-secondary { border-color: #7C3AED !important; }
+
+/* --- Tertiary color adjustments --- */
+.debugai-light .text-tertiary { color: #B45309 !important; }
+.debugai-light .bg-tertiary { background-color: #D97706 !important; }
+.debugai-light .bg-tertiary\/10 { background-color: rgba(180, 83, 9, 0.1) !important; }
+.debugai-light .bg-tertiary-container\/10 { background-color: #FEF3C7 !important; }
+.debugai-light .bg-tertiary-container\/20 { background-color: rgba(254, 243, 199, 0.5) !important; }
+.debugai-light .border-tertiary-container\/20 { border-color: #FCD34D !important; }
+
+/* --- Error color adjustments --- */
+.debugai-light .text-error { color: #DC2626 !important; }
+.debugai-light .bg-error { background-color: #EF4444 !important; }
+.debugai-light .bg-error\/5 { background-color: rgba(239, 68, 68, 0.06) !important; }
+.debugai-light .bg-error-container { background-color: #FEE2E2 !important; }
+.debugai-light .bg-error-container\/5 { background-color: rgba(254, 226, 226, 0.3) !important; }
+.debugai-light .text-on-error { color: #FFFFFF !important; }
+.debugai-light .text-on-error-container { color: #991B1B !important; }
+.debugai-light .border-error { border-color: #DC2626 !important; }
+.debugai-light .border-error\/20 { border-color: rgba(220, 38, 38, 0.25) !important; }
+.debugai-light .text-error\/70 { color: rgba(220, 38, 38, 0.8) !important; }
+.debugai-light .hover\:bg-error\/10:hover { background-color: rgba(220, 38, 38, 0.08) !important; }
+.debugai-light .hover\:text-error:hover { color: #DC2626 !important; }
+
+/* --- Border / Outline utilities --- */
+.debugai-light .border-outline-variant { border-color: #D1D5DB !important; }
+.debugai-light .border-outline-variant\/10 { border-color: rgba(209, 213, 219, 0.5) !important; }
+.debugai-light .border-outline-variant\/20 { border-color: rgba(209, 213, 219, 0.6) !important; }
+.debugai-light .border-outline-variant\/30 { border-color: rgba(209, 213, 219, 0.7) !important; }
+.debugai-light .border-outline-variant\/50 { border-color: rgba(209, 213, 219, 0.85) !important; }
+.debugai-light .divide-outline-variant\/10 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(209, 213, 219, 0.5) !important; }
+.debugai-light .divide-outline-variant\/20 > :not([hidden]) ~ :not([hidden]) { border-color: rgba(209, 213, 219, 0.6) !important; }
+.debugai-light .bg-outline-variant\/30 { background-color: rgba(209, 213, 219, 0.4) !important; }
+.debugai-light .border-surface { border-color: #F5F7FB !important; }
+.debugai-light .text-outline { color: #6B7280 !important; }
+.debugai-light .text-outline\/40 { color: rgba(107, 114, 128, 0.5) !important; }
+.debugai-light .bg-outline { background-color: #9CA3AF !important; }
+.debugai-light .border-outline { border-color: #9CA3AF !important; }
+
+/* --- Emerald (status indicator) --- */
+.debugai-light .bg-emerald-500 { background-color: #10B981 !important; }
+.debugai-light .bg-emerald-500\/10 { background-color: #DCFCE7 !important; }
+.debugai-light .bg-emerald-500\/20 { background-color: #DCFCE7 !important; }
+
+/* --- Selection --- */
+.debugai-light .selection\:bg-primary-container ::selection,
+.debugai-light.selection\:bg-primary-container ::selection { background-color: #DBEAFE !important; }
+.debugai-light .selection\:text-on-primary-container ::selection,
+.debugai-light.selection\:text-on-primary-container ::selection { color: #1E40AF !important; }
+
+/* ============================================================
+   Sidebar
+   ============================================================ */
+.debugai-light aside {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 1px 0 0 #E2E8F0;
+}
+
+.debugai-light aside a {
+  color: #4B5563 !important;
+}
+
+.debugai-light aside a:hover {
+  background-color: #F1F5F9 !important;
+  color: #111827 !important;
+}
+
+/* Active nav link */
+.debugai-light aside a.text-primary {
+  background-color: #EFF6FF !important;
+  color: #2563EB !important;
+  border-color: #2563EB !important;
+}
+
+/* Sidebar Pro Account card */
+.debugai-light aside .bg-surface-container-high\/50 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ============================================================
+   Header / Top App Bar
+   ============================================================ */
+.debugai-light header {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(12px);
+  border-color: #E2E8F0 !important;
+}
+
+/* Header search input */
+.debugai-light header input {
+  background-color: #F1F5F9 !important;
+  border-color: #D1D5DB !important;
+  color: #111827 !important;
+}
+
+.debugai-light header input::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Header divider */
+.debugai-light .bg-outline-variant\/30 {
+  background-color: #D1D5DB !important;
+}
+
+/* ============================================================
+   Tables — readability fixes
+   ============================================================ */
+.debugai-light thead tr {
+  background-color: #E5EAF3 !important;
+}
+
+.debugai-light thead th {
+  color: #374151 !important;
+  font-weight: 600 !important;
+  border-color: #D1D5DB !important;
+}
+
+.debugai-light tbody tr {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.debugai-light tbody tr:nth-child(even) {
+  background-color: #F8FAFC;
+}
+
+.debugai-light tbody tr:hover {
+  background-color: #EAF2FF !important;
+}
+
+.debugai-light tbody td {
+  color: #1F2937;
+}
+
+/* ============================================================
+   Status Badges
+   ============================================================ */
+
+/* Fixed / Success badges */
+.debugai-light .bg-emerald-500\/10,
+.debugai-light .bg-emerald-500\/20 {
+  background-color: #DCFCE7 !important;
+  color: #15803D !important;
+  border: 1px solid #86EFAC !important;
+}
+
+/* Pending / Warning badges */
+.debugai-light .bg-tertiary-container\/10,
+.debugai-light .bg-tertiary\/10 {
+  background-color: #FEF3C7 !important;
+  color: #B45309 !important;
+  border: 1px solid #FCD34D !important;
+}
+
+/* Error badges */
+.debugai-light .bg-error-container\/10,
+.debugai-light .bg-error\/5 {
+  background-color: #FEE2E2 !important;
+  color: #B91C1C !important;
+  border: 1px solid #FCA5A5 !important;
+}
+
+/* ============================================================
+   Inputs, Textareas, Selects
+   ============================================================ */
+.debugai-light input,
+.debugai-light textarea,
+.debugai-light select {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #111827 !important;
+}
+
+.debugai-light input::placeholder,
+.debugai-light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+.debugai-light input:focus,
+.debugai-light textarea:focus,
+.debugai-light select:focus {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Radio inputs */
+.debugai-light input[type="radio"] {
+  background-color: #FFFFFF !important;
+  border-color: #9CA3AF !important;
+}
+
+.debugai-light input[type="radio"]:checked {
+  background-color: #2563EB !important;
+  border-color: #2563EB !important;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+/* Primary button (bg-primary text-on-primary) — already handled by utilities above */
+/* Ensure button shadows work in light mode */
+.debugai-light button.bg-primary {
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.debugai-light button.bg-primary:hover {
+  background-color: #1D4ED8 !important;
+}
+
+/* Ghost / outline buttons */
+.debugai-light .border-outline-variant {
+  border-color: #D1D5DB !important;
+}
+
+/* Pagination buttons */
+.debugai-light .bg-surface-container-high {
+  background-color: #EEF2F7 !important;
+}
+
+/* ============================================================
+   Code blocks & editor areas
+   ============================================================ */
+.debugai-light pre {
+  background-color: #F1F5F9 !important;
+  color: #111827 !important;
+}
+
+.debugai-light pre code {
+  color: #111827 !important;
+}
+
+.debugai-light .bg-surface-container-lowest {
+  background-color: #F8FAFC !important;
+}
+
+/* ============================================================
+   Modal overrides
+   ============================================================ */
+.debugai-light .bg-surface\/80 {
+  background-color: rgba(245, 247, 251, 0.85) !important;
+}
+
+.debugai-light #fix-modal .glass-card {
+  background: #FFFFFF !important;
+  border: 1px solid #D6DCE8 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.debugai-light #fix-modal .bg-surface-container-high {
+  background-color: #F1F5F9 !important;
+}
+
+.debugai-light #fix-modal .bg-surface-container-high\/50 {
+  background-color: #F5F7FB !important;
+}
+
+/* ============================================================
+   Scrollbar (light mode)
+   ============================================================ */
+.debugai-light ::-webkit-scrollbar-track {
+  background: #F5F7FB;
+}
+
+.debugai-light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 10px;
+}
+
+.debugai-light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.debugai-light footer {
+  border-color: #E2E8F0 !important;
+  color: #6B7280 !important;
+}
+
+.debugai-light footer a:hover {
+  color: #2563EB !important;
+}
+
+/* ============================================================
+   Notification panel
+   ============================================================ */
+.debugai-light .notification-badge {
+  background-color: #EF4444 !important;
+  color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+
+/* ============================================================
+   Hover states for icon buttons in light mode
+   ============================================================ */
+.debugai-light .hover\:text-primary:hover { color: #2563EB !important; }
+.debugai-light .hover\:text-on-surface:hover { color: #111827 !important; }
+.debugai-light .hover\:bg-surface-variant\/10:hover { background-color: #F1F5F9 !important; }
+.debugai-light .hover\:bg-surface-variant\/20:hover { background-color: #E8ECF4 !important; }
+.debugai-light .hover\:border-primary:hover { border-color: #2563EB !important; }
+.debugai-light .hover\:border-primary\/40:hover { border-color: rgba(37, 99, 235, 0.4) !important; }
+.debugai-light .hover\:border-secondary:hover { border-color: #7C3AED !important; }
+.debugai-light .hover\:border-l-2:hover { border-left-width: 2px; }
+.debugai-light .hover\:bg-primary\/5:hover { background-color: rgba(37, 99, 235, 0.06) !important; }
+
+/* ============================================================
+   Focus-within state for analyze page input card
+   ============================================================ */
+.debugai-light .focus-within\:border-primary\/50:focus-within { border-color: rgba(37, 99, 235, 0.5) !important; }
+
+/* ============================================================
+   Toggle switches
+   ============================================================ */
+.debugai-light button.bg-primary .bg-on-primary {
+  background-color: #FFFFFF !important;
+}
+
+.debugai-light button.bg-surface-container-highest {
+  background-color: #D1D5DB !important;
+}
+
+.debugai-light button.bg-surface-container-highest .bg-outline {
+  background-color: #9CA3AF !important;
+}
+
+/* ============================================================
+   Accent color swatches (settings page)
+   ============================================================ */
+.debugai-light .ring-primary {
+  --tw-ring-color: #2563EB !important;
+}
+
+/* ============================================================
+   Chart canvas — let Chart.js handle; ensure labels are dark
+   ============================================================ */
+.debugai-light canvas {
+  filter: none;
+}
+
+/* ============================================================
+   Provider option cards (settings page)
+   ============================================================ */
+.debugai-light .provider-btn {
+  background-color: #FFFFFF !important;
+  border-color: #D1D5DB !important;
+  color: #374151 !important;
+}
+
+.debugai-light .provider-btn:hover {
+  border-color: #2563EB !important;
+  background-color: #F8FAFC !important;
+}
+
+.debugai-light .provider-btn .material-symbols-outlined {
+  color: #4B5563 !important;
+}
+
+/* ============================================================
+   Upload page — dashed drop zone
+   ============================================================ */
+.debugai-light .border-dashed {
+  border-color: rgba(37, 99, 235, 0.3) !important;
+}
+
+.debugai-light .border-dashed:hover {
+  border-color: rgba(37, 99, 235, 0.5) !important;
+}
+
+/* ============================================================
+   Misc utility overrides
+   ============================================================ */
+
+/* Progress bar tracks */
+.debugai-light .bg-surface-variant {
+  background-color: #E2E8F0 !important;
+}
+
+/* Inverse surface (unused in light but safety) */
+.debugai-light .bg-inverse-surface { background-color: #1E293B !important; }
+.debugai-light .text-inverse-on-surface { color: #F8FAFC !important; }
+
+/* Surface container (generic — used for tags, chips) */
+.debugai-light .bg-surface-container {
+  background-color: #EEF2F7 !important;
+}
+
+/* Text outline-variant (used for sub-IDs in dynamic tables) */
+.debugai-light .text-outline-variant {
+  color: #6B7280 !important;
+}
+
+/* Emerald text for status (used in history.js dynamic toggle) */
+.debugai-light .text-emerald-500 { color: #059669 !important; }
+.debugai-light .border-emerald-500\/20 { border-color: rgba(5, 150, 105, 0.25) !important; }
+.debugai-light .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.35) !important; }
+.debugai-light .hover\:bg-emerald-500\/5:hover { background-color: rgba(5, 150, 105, 0.06) !important; }
+.debugai-light .bg-surface-variant\/5 { background-color: rgba(229, 234, 243, 0.15) !important; }
+
+/* Notification panel on-surface-variant opacity variants */
+.debugai-light .text-on-surface-variant\/60 { color: rgba(75, 85, 99, 0.65) !important; }
+.debugai-light .text-on-surface-variant\/70 { color: rgba(75, 85, 99, 0.75) !important; }
+.debugai-light .text-on-surface-variant\/90 { color: rgba(75, 85, 99, 0.92) !important; }
+
+/* Settings — provider active state */
+.debugai-light .bg-primary\/5 { background-color: rgba(37, 99, 235, 0.06) !important; }
+
+/* Settings — pagination active shadow */
+.debugai-light .shadow-primary\/20 { --tw-shadow-color: rgba(37, 99, 235, 0.2) !important; }
+
+/* Surface-container-low used in radio labels & API config */
+.debugai-light .bg-surface-container-low {
+  background-color: #FFFFFF !important;
+}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "test-user-id-001",
+    "fullName": "Test User",
+    "email": "test@debugai.com",
+    "passwordHash": "$2b$12$zoiQ221ZowBWPlyoTiyKuuz8bhULGBVTowOXzq4.44kTJj1F0ljtu",
+    "biography": "Cyber-security specialist and DebugAI pioneer.",
+    "profileImage": "",
+    "workspaceLogo": "",
+    "preferences": {
+      "theme": "dark",
+      "accent": "primary",
+      "tokenRotation": true,
+      "aiProvider": "gemini",
+      "notifications": {
+        "criticalErrors": true,
+        "weeklyReport": false,
+        "slackIntegration": true
+      }
+    },
+    "createdAt": "2026-05-07T13:29:33.189Z",
+    "updatedAt": "2026-05-07T13:29:33.189Z"
+  }
+]
