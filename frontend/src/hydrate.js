@@ -3,7 +3,7 @@
   document.documentElement.classList.add('no-transitions');
   
   const STORAGE_KEY = 'debugai.settings';
-  const AUTH_KEY = 'debugai-user';
+  const AUTH_KEY = 'debugai.user';
   
   let theme = 'dark'; // Default
   

@@ -185,15 +185,16 @@ export async function initDashboard() {
     });
   });
 
-  // Export Logic
+  // Export Logic — FIX: API returns `errors`, not `history`
   if (exportButton) {
     exportButton.addEventListener('click', async () => {
       try {
-        const { history } = await apiFetch('/api/history');
-        const csvContent = "data:text/csv;charset=utf-8," 
-          + "Timestamp,Type,Error,Status\n"
-          + history.map(e => `"${e.createdAt}","${e.errorType}","${e.message.replace(/"/g, '""')}","${e.isFixed ? 'FIXED' : 'PENDING'}"`).join('\n');
-        const link = document.createElement("a");
+        const data = await apiFetch('/api/history?limit=1000');
+        const errors = data.errors || [];
+        const csvContent = 'data:text/csv;charset=utf-8,'
+          + 'Timestamp,Type,Error,Status\n'
+          + errors.map(e => `"${e.createdAt}","${e.errorType}","${(e.message || '').replace(/"/g, '""')}","${e.isFixed ? 'FIXED' : 'PENDING'}"`).join('\n');
+        const link = document.createElement('a');
         link.href = encodeURI(csvContent);
         link.download = `debugai_export_${new Date().toISOString()}.csv`;
         link.click();
@@ -201,9 +202,10 @@ export async function initDashboard() {
     });
   }
 
-  // Initial Fetch & Auto-Refresh (30s)
+  // Initial Fetch & Auto-Refresh (30s) — store interval for cleanup
   fetchAndRender();
-  setInterval(() => fetchAndRender(), 30000);
+  const autoRefreshInterval = setInterval(() => fetchAndRender(), 30000);
+  window.addEventListener('beforeunload', () => clearInterval(autoRefreshInterval));
 }
 
 // Auto-init

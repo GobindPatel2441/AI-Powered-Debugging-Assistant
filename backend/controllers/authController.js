@@ -84,21 +84,12 @@ export async function forgotPassword(req, res, next) {
 
 export async function resetPassword(req, res, next) {
   try {
-    const { email, password } = req.body;
-    if (!password || password.length < 8) {
-      return res.status(400).json({ error: 'Password must be at least 8 characters.' });
-    }
-
-    // For demo: update password by email directly
-    const user = await User.findOne({ email: email?.toLowerCase().trim() });
-    if (!user) {
-      return res.status(404).json({ error: 'Account not found.' });
-    }
-
-    user.passwordHash = password;
-    await user.save();
-
-    res.json({ message: 'Password updated successfully.' });
+    // SECURITY: A real reset flow requires a time-limited signed token sent to the user's email.
+    // Accepting { email, password } with no token allows anyone who knows an email to reset it.
+    // This endpoint is intentionally disabled until a proper token-based flow is implemented.
+    return res.status(501).json({
+      error: 'Password reset via email link is not yet implemented. Please contact support.'
+    });
   } catch (error) {
     next(error);
   }
