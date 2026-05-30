@@ -63,22 +63,6 @@
       transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     }
   </style>
-  <script>
-    // Immediate theme initialization to prevent flashing
-    (function() {
-      try {
-        const settings = JSON.parse(localStorage.getItem('debugai.settings') || '{}');
-        const theme = settings.preferences?.theme || 'dark';
-        if (theme === 'light') {
-          document.documentElement.classList.remove('dark');
-          document.documentElement.classList.add('debugai-light');
-        } else {
-          document.documentElement.classList.add('dark');
-          document.documentElement.classList.remove('debugai-light');
-        }
-      } catch (e) {}
-    })();
-  </script>
 </head>
 <body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
 <div class="page-transition-overlay"></div>
@@ -170,7 +154,10 @@
 <!-- Page Content -->
 <div class="flex-1 p-margin-page max-w-container-max mx-auto w-full space-y-gutter">
 <div class="flex justify-between items-end mb-stack-lg">
-<div><h2 class="font-display-lg text-display-lg text-primary mb-2">Error History</h2><p class="text-on-surface-variant max-w-2xl">Audit log of all AI-assisted resolutions and system diagnostics.</p></div>
+<div>
+  <h2 class="font-display-lg text-display-lg text-primary mb-2">Error History</h2>
+  <p class="text-on-surface-variant max-w-2xl">Audit log of all AI-assisted resolutions and system diagnostics. <span data-total-logs></span></p>
+</div>
 <div class="flex flex-col md:flex-row gap-4 items-center">
 <div class="relative flex-1 w-full">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>

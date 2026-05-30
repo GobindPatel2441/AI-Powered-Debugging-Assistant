@@ -65,9 +65,9 @@ router.get('/history/:id', getError);
 router.patch('/history/:id/fix', toggleFix);
 router.post('/history/:id/verify', verifyErrorFix);
 
-// === Settings Routes (Legacy — still works without auth) ===
+// === Settings Routes (Auth required for mutations) ===
 router.get('/settings', readSettings);
-router.put('/settings', saveSettings);
-router.delete('/settings', deleteSettings);
+router.put('/settings', authMiddleware, saveSettings);
+router.delete('/settings', authMiddleware, deleteSettings);
 
 export default router;

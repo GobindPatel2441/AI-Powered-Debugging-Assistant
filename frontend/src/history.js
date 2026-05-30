@@ -1,7 +1,8 @@
 import { apiFetch, escapeHtml } from './api.js';
 
 const tbody = document.querySelector('tbody');
-const totalLogsEl = [...document.querySelectorAll('p')].find((node) => node.textContent === '14,292');
+// Use a stable data attribute — the hardcoded textContent selector breaks after first render
+const totalLogsEl = document.querySelector('[data-total-logs]');
 
 // Filters & Controls
 const searchInput = document.getElementById('history-search');
@@ -98,8 +99,8 @@ function renderHistory(data) {
         <td class="px-6 py-4 text-right">
           <div class="flex justify-end gap-2">
             <button 
-              class="p-2 rounded-lg hover:bg-primary/10 hover:text-primary transition-all view-details-btn" 
-              onclick="window.location.href='/analyze.html?id=${item._id}'"
+              class="p-2 rounded-lg hover:bg-primary/10 hover:text-primary transition-all view-details-btn"
+              data-history-id="${item._id}"
               title="View full session"
             >
               <span class="material-symbols-outlined text-[18px]">visibility</span>
@@ -134,12 +135,22 @@ function renderPagination(pages, current) {
 }
 
 function attachEventListeners() {
+  // Fix toggle buttons (event delegation would be better but this is safe since called after innerHTML)
   document.querySelectorAll('.fix-toggle').forEach(btn => {
     btn.onclick = (e) => {
       e.stopPropagation();
       const id = btn.getAttribute('data-id');
       const isFixed = btn.getAttribute('data-fixed') === 'true';
       toggleFixStatus(id, isFixed);
+    };
+  });
+
+  // View details buttons — use data attribute instead of inline onclick (XSS prevention)
+  document.querySelectorAll('[data-history-id]').forEach(btn => {
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      const id = btn.getAttribute('data-history-id');
+      window.location.href = `/analyze.html?id=${encodeURIComponent(id)}`;
     };
   });
 }
@@ -204,3 +215,4 @@ exportBtn?.addEventListener('click', () => {
 
 // Initial Load
 loadHistory();
+

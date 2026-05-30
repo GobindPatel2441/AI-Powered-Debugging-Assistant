@@ -60,7 +60,10 @@ const errorLogSchema = new mongoose.Schema({
   }
 });
 
-
-
+// Compound indexes for common query patterns
+errorLogSchema.index({ createdAt: -1 });              // sort by newest first (primary query)
+errorLogSchema.index({ isFixed: 1, createdAt: -1 });  // filter by fix status + sort
+errorLogSchema.index({ errorType: 1, createdAt: -1 }); // filter by type + sort
+errorLogSchema.index({ severity: 1, createdAt: -1 }); // filter by severity + sort
 
 export default mongoose.model('ErrorLog', errorLogSchema);

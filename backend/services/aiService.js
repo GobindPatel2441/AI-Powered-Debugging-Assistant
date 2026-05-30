@@ -74,7 +74,7 @@ async function analyzeWithOpenAI(errorMessage, code = '') {
 async function analyzeWithGemini(errorMessage, code = '') {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ 
-    model: process.env.GEMINI_MODEL || 'gemini-flash-latest',
+    model: process.env.GEMINI_MODEL || 'gemini-1.5-flash-latest',
     generationConfig: { responseMimeType: 'application/json' }
   });
 
